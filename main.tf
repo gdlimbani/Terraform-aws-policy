@@ -44,3 +44,14 @@ resource "aws_iam_policy_attachment" "user_policy_attachment" {
   users     = [data.aws_iam_user.existing_user.user_name]
   policy_arn = aws_iam_policy.my_policy.arn
 }
+
+# Ensure the policy is detached first before destroying it
+resource "aws_iam_policy_attachment" "detach_user_policy" {
+  count = length(data.aws_iam_user.existing_user.id) > 0 ? 1 : 0
+  name      = "detach_my_policy"
+  users     = [data.aws_iam_user.existing_user.user_name]
+  policy_arn = aws_iam_policy.my_policy.arn
+  lifecycle {
+    prevent_destroy = false
+  }
+}
