@@ -1,5 +1,6 @@
 # Define the policy
 resource "aws_iam_policy" "my_policy" {
+  count       = length(data.aws_iam_policy.existing_policy.id) == 0 ? 1 : 0
   name        = "${var.policy_name}"
   description = "Gdl custom IAM policy"
   policy      = jsonencode({
@@ -35,6 +36,9 @@ resource "aws_iam_policy" "my_policy" {
 		}
 	]
   })
+  lifecycle {
+    prevent_destroy = false
+  }
 }
 
 # Attach the policy to the user if they exist
