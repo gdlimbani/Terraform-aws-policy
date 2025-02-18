@@ -1,0 +1,6 @@
+prefix = "gdl"
+region = "ap-south-1"
+user_name = "gautam.limbani"
+policy_name = "gdl-eks-policy"
+resource_created_by = "Gautam Limbani"
+attach_policy_2_user = "Attch_policy_to_user"
