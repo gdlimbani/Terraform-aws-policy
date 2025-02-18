@@ -14,7 +14,7 @@ pipeline {
                     // Initialize and apply Terraform
                     bat '''
                     terraform init
-                    terraform destrol -auto-approve
+                    terraform destroy -auto-approve
                     '''
                 }
             }
