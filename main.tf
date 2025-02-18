@@ -43,7 +43,7 @@ resource "aws_iam_policy" "my_policy" {
 
 # Attach the policy to the user if they exist
 resource "aws_iam_policy_attachment" "user_policy_attachment" {
-  count = length(data.aws_iam_user.existing_user.id) > 0 ? 1 : 0
+  count = length(data.aws_iam_user.existing_user.id) > 0 && length(aws_iam_policy.my_policy) > 0 ? 1 : 0
   name      = "my_policy_attachment"
   users     = [data.aws_iam_user.existing_user.user_name]
   policy_arn = aws_iam_policy.my_policy[0].arn
@@ -51,7 +51,7 @@ resource "aws_iam_policy_attachment" "user_policy_attachment" {
 
 # Ensure the policy is detached first before destroying it
 resource "aws_iam_policy_attachment" "detach_user_policy" {
-  count = length(data.aws_iam_user.existing_user.id) > 0 ? 1 : 0
+  count = length(data.aws_iam_user.existing_user.id) > 0 && length(aws_iam_policy.my_policy) > 0 ? 1 : 0
   name      = "detach_my_policy"
   users     = [data.aws_iam_user.existing_user.user_name]
   policy_arn = aws_iam_policy.my_policy[0].arn
