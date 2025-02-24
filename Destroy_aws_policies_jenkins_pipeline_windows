@@ -10,10 +10,8 @@ pipeline {
     stages {        
         stage('Terraform Apply') {
             steps {
-                script {
-                    // Initialize and apply Terraform
-                    bat '''
-                    terraform init
+                script {                    
+                    bat '''                    
                     terraform destroy -auto-approve
                     '''
                 }
